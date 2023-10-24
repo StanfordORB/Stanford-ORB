@@ -11,13 +11,13 @@ The Dataset consists of:
 - Reported results of concurrent state-of-the-art models;
 - A full set of scripts & guideline to run the benchmarks.
 
-This repository contains the evaluation tools, and the full dataset is availble on our [project page](3dorb.github.io).
+This repository contains the evaluation tools, and the full dataset is availble on our [project page](stanfordorb.github.io).
 
 
 > __Real-World 3D Object Inverse Rendering Benchmark__  
 > [Zhengfei Kuang](https://zhengfeikuang.com), [Yunzhi Zhang](https://https://cs.stanford.edu/~yzzhang/), [Hong-Xing Yu](https://kovenyu.com/), [Samir Agarwala](https://samiragarwala.github.io/), [Shangzhe Wu](https://elliottwu.com/), [Jiajun Wu](https://jiajunwu.com/)
 > _NeurIPS 2023 Datasets and Benchmarks Track, December 2023_  
-> __[Project page](https://3dorb.github.io)&nbsp;/ [Paper](https://nvlabs.github.io/instant-ngp/assets/mueller2022instant.pdf)&nbsp;/ [BibTeX](https://nvlabs.github.io/instant-ngp/assets/mueller2022instant.bib)__
+> __[Project page](https://stanfordorb.github.io)&nbsp;/ [Paper](https://stanfordorb.github.io)&nbsp;/ [BibTeX](https://stanfordorb.github.io)__
 
 ## Dataset Structure
 
@@ -61,24 +61,15 @@ Second, to support the task of relighting, in each data folder (e.g. baking_scen
 
 ## Training 
 
-TODO @Runzhi
-### Blender
-
-### LLFF
-
-### COLMAP
+Coming Soon
 
 ## Evaluation 
 
-TODO @Runzhi
+Coming Soon
 
 ## Result Visualization
 
-TODO @Zhengfei
-
-We also provide the visualization script used for drawing the result figure in our paper. The script is based on Jupyter Notebook.
-
-Once you have the output json files from the evaluaion scripts, open the ipython file and replace the blabla to the path of your files. 
+Coming Soon
 
 ## Acknowledgement
 
