@@ -11,7 +11,7 @@ The Dataset consists of:
 - Reported results of concurrent state-of-the-art models;
 - A full set of scripts & guideline to run the benchmarks.
 
-This repository contains the evaluation tools, and the full dataset is availble on our [project page](stanfordorb.github.io).
+This repository contains the evaluation tools, and the full dataset is availble on our [project page](https://stanfordorb.github.io).
 
 
 > __Real-World 3D Object Inverse Rendering Benchmark__  
