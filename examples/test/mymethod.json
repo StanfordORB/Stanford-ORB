@@ -1,0 +1,36 @@
+{
+    "info": {
+        "scene001_obj018_teapot": {
+            "view": [
+                {
+                    "output_image": "examples/test/mymethod/scene001_obj018_teapot/val_000000_opt.png",
+                    "target_image": "examples/data/scene001_obj018_teapot/test/0000.exr"
+                }
+            ],
+            "light": [
+                {
+                    "output_image": "examples/test/mymethod/scene001_obj018_teapot/scene006_obj018_teapot/val_000010_opt.png",
+                    "target_image": "examples/data/scene006_obj018_teapot/test/0061.exr"
+                }
+            ],
+            "geometry": [
+                {
+                    "output_depth": "examples/test/mymethod/scene001_obj018_teapot/depth_000000.exr",
+                    "target_depth": "examples/data/scene001_obj018_teapot/z_maps/0000.npy",
+                    "output_normal": "examples/test/mymethod/scene001_obj018_teapot/normal_000000.exr",
+                    "target_normal": "examples/data/scene001_obj018_teapot/normal_maps/0000.npy"
+                }
+            ],
+            "material": [
+                {
+                    "output_image": "examples/test/mymethod/scene001_obj018_teapot/val_000000_kd.png",
+                    "target_image": "examples/data/scene001_obj018_teapot/albedo_maps/0000.png"
+                }
+            ],
+            "shape": {
+                "output_mesh": "examples/test/mymethod/scene001_obj018_teapot/output_mesh_world.obj",
+                "target_mesh": "examples/data/scene001_obj018_teapot/mesh.obj"
+            }
+        }
+    }
+}

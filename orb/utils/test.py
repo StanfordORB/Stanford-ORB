@@ -31,7 +31,7 @@ def lpips(inputs: np.ndarray, target: np.ndarray, mask: np.ndarray):
         return np.nan
     global _lpips
     if _lpips is None:
-        _lpips = LPIPS(net='vgg').cuda()
+        _lpips = LPIPS(net='vgg', verbose=False).cuda()
     inputs = rgb_to_srgb(inputs)
     target = rgb_to_srgb(target)
 
@@ -112,7 +112,10 @@ def compute_metrics_material(results: list) -> dict:
     for item in results:
         target_srgb = load_rgb_png(item['target_image'], downsize_factor=4)
         target_rgb = srgb_to_rgb(target_srgb)
-        target_alpha = load_mask_png(os.path.join(os.path.dirname(item['target_image']), '../../blender_format_LDR/test_mask', os.path.basename(item['target_image'])), downsize_factor=4).astype(np.float32)
+        target_alpha = load_mask_png(
+            # os.path.join(os.path.dirname(item['target_image']), '../../blender_format_LDR/test_mask', os.path.basename(item['target_image'])),
+            os.path.join(os.path.dirname(item['target_image']), '../test_mask', os.path.basename(item['target_image'])),
+            downsize_factor=4).astype(np.float32)
         if item['output_image'] is None:
             input_rgb = np.ones((BENCHMARK_RESOLUTION, BENCHMARK_RESOLUTION, 3), dtype=np.float32)
         elif item['output_image'].endswith('.exr'):
@@ -138,7 +141,10 @@ def compute_metrics_geometry(results: list) -> dict:
         ret.append(dict())
         target_normal = cv2_downsize(np.load(item['target_normal']), downsize_factor=4)
         input_normal = load_rgb_exr(item['output_normal'])
-        mask = load_mask_png(Path(item['target_normal']).parent.parent.parent / 'blender_format_LDR/test_mask' / Path(item['target_normal']).with_suffix('.png').name, downsize_factor=4).astype(np.float32)
+        mask = load_mask_png(
+            # Path(item['target_normal']).parent.parent.parent / 'blender_format_LDR/test_mask' / Path(item['target_normal']).with_suffix('.png').name,
+            Path(item['target_normal']).parent.parent / 'test_mask' / Path(item['target_normal']).with_suffix('.png').name,
+            downsize_factor=4).astype(np.float32)
         ret[-1].update({
             'normal_angle': calc_normal_distance(input_normal, target_normal, mask),
         })

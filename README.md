@@ -64,8 +64,11 @@ Second, to support the task of relighting, in each data folder (e.g. baking_scen
 Coming Soon
 
 ## Evaluation 
-
-Coming Soon
+Save the output of your method following [this](./examples/test/mymethod.json) example, and run the following:
+```
+```bash
+python scripts/test.py --input-path examples/test/mymethod.json --output-path examples/scores/mymethod.json --scenes example
+```
 
 ## Result Visualization
 
