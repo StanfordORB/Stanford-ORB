@@ -5,8 +5,8 @@ import trimesh.transformations
 sys.path.append('../code')
 import argparse
 import GPUtil
-from imageint.utils.extract_mesh import clean_mesh
-from imageint.third_party.idr.code.utils.plots import get_surface_high_res_mesh
+from orb.utils.extract_mesh import clean_mesh
+from orb.third_party.idr.code.utils.plots import get_surface_high_res_mesh
 import os
 from pyhocon import ConfigFactory
 import pyexr
@@ -41,8 +41,8 @@ def relit_with_light(model, relit_dataloader, images_dir,
                 total_pixels, img_res, albedo_ratio=None, light_type='origin'):
 
     if os.getenv('INVRENDER_GT_ENV_MAP') == '1':
-        from imageint.constant import PROCESSED_SCENE_DATA_DIR
-        from imageint.utils.preprocess import load_rgb_exr
+        from orb.constant import PROCESSED_SCENE_DATA_DIR
+        from orb.utils.preprocess import load_rgb_exr
         from pathlib import Path
         import glob
         print('INVRENDER GT ENV MAP')

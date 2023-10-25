@@ -10,7 +10,7 @@ import os
 import numpy as np
 import torch
 import nvdiffrast.torch as dr
-import imageint
+import orb
 
 from . import util
 
@@ -103,7 +103,7 @@ class Texture2D:
 
 def create_trainable(init, res=None, auto_mipmaps=True, min_max=None):
     with torch.no_grad():
-        if not hasattr(imageint.third_party, 'nvdiffrecmc'):
+        if not hasattr(orb.third_party, 'nvdiffrecmc'):
             if isinstance(init, Texture2D):
                 assert isinstance(init.data, torch.Tensor)
                 min_max = init.min_max if min_max is None else min_max
@@ -111,7 +111,7 @@ def create_trainable(init, res=None, auto_mipmaps=True, min_max=None):
             elif isinstance(init, np.ndarray):
                 init = torch.tensor(init, dtype=torch.float32, device='cuda')
         else:
-            if isinstance(init, (Texture2D, imageint.third_party.nvdiffrecmc.render.texture.Texture2D)):
+            if isinstance(init, (Texture2D, orb.third_party.nvdiffrecmc.render.texture.Texture2D)):
                 assert isinstance(init.data, torch.Tensor)
                 min_max = init.min_max if min_max is None else min_max
                 init = init.data

@@ -10,7 +10,7 @@
 import torch
 import nvdiffrast.torch as dr
 
-import imageint
+import orb
 from . import util
 from . import renderutils as ru
 from . import light
@@ -76,13 +76,13 @@ def shade(
     assert 'bsdf' in material or bsdf is not None, "Material must specify a BSDF type"
     bsdf = material['bsdf'] if bsdf is None else bsdf
     if bsdf == 'pbr':
-        if not hasattr(imageint.third_party, 'nvdiffrec'):
+        if not hasattr(orb.third_party, 'nvdiffrec'):
             if isinstance(lgt, light.EnvironmentLight):
                 shaded_col = lgt.shade(gb_pos, gb_normal, kd, ks, view_pos, specular=True)
             else:
                 assert False, "Invalid light type"
         else:
-            if isinstance(lgt, (light.EnvironmentLight, imageint.third_party.nvdiffrec.render.light.EnvironmentLight)):
+            if isinstance(lgt, (light.EnvironmentLight, orb.third_party.nvdiffrec.render.light.EnvironmentLight)):
                 shaded_col = lgt.shade(gb_pos, gb_normal, kd, ks, view_pos, specular=True)
             else:
                 assert False, "Invalid light type"

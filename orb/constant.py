@@ -3,6 +3,7 @@ import os
 PROJ_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BENCHMARK_RESOLUTION = 512
 
+PROCESSED_SCENE_DATA_DIR = os.path.join(PROJ_ROOT, 'processed_data')
 
 RELEASE_SCENES = [
     "scene001_obj003_baking",

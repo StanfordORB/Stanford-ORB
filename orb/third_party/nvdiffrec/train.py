@@ -21,7 +21,7 @@ import xatlas
 from dataset.dataset_mesh import DatasetMesh
 from dataset.dataset_nerf import DatasetNERF
 from dataset.dataset_llff import DatasetLLFF
-from imageint.datasets.nvdiffrecmc import DatasetCapture
+from orb.datasets.nvdiffrecmc import DatasetCapture
 
 # Import topology / geometry trainers
 from geometry.dmtet import DMTetGeometry
@@ -36,7 +36,7 @@ from render import texture
 from render import mlptexture
 from render import light
 from render import render
-import imageint
+import orb
 
 RADIUS = 3.0
 
@@ -201,11 +201,11 @@ def validate_itr(glctx, target, geometry, opt_material, lgt, FLAGS):
             for layer in FLAGS.display:
                 if 'latlong' in layer and layer['latlong']:
 
-                    if not hasattr(imageint.third_party, 'nvdiffrec'):
+                    if not hasattr(orb.third_party, 'nvdiffrec'):
                         if isinstance(lgt, light.EnvironmentLight):
                             result_dict['light_image'] = util.cubemap_to_latlong(lgt.base, FLAGS.display_res)
                     else:
-                        if isinstance(lgt, (light.EnvironmentLight, imageint.third_party.nvdiffrec.render.light.EnvironmentLight)):
+                        if isinstance(lgt, (light.EnvironmentLight, orb.third_party.nvdiffrec.render.light.EnvironmentLight)):
                             result_dict['light_image'] = util.cubemap_to_latlong(lgt.base, FLAGS.display_res)
                     result_image = torch.cat([result_image, result_dict['light_image']], axis=1)
                 elif 'relight' in layer:

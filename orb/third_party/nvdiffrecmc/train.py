@@ -21,7 +21,7 @@ import xatlas
 
 # Import data readers / generators
 from dataset import DatasetMesh, DatasetNERF, DatasetLLFF
-from imageint.datasets.nvdiffrecmc import DatasetCapture
+from orb.datasets.nvdiffrecmc import DatasetCapture
 
 # Import topology / geometry trainers
 from geometry.dmtet import DMTetGeometry
@@ -276,8 +276,8 @@ def validate(glctx, geometry, opt_material, lgt, dataset_validate, out_dir, FLAG
             print(len(dataloader_validate))
             print('NVDIFFRECMC GT ENV MAP')
             from pathlib import Path
-            from imageint.utils.env_map import env_map_to_cam_to_world_by_convention
-            from imageint.utils.preprocess import load_rgb_exr
+            from orb.utils.env_map import env_map_to_cam_to_world_by_convention
+            from orb.utils.preprocess import load_rgb_exr
             scene = Path(dataset_validate.base_dir).parent.parent.name
             with open(os.path.join(dataset_validate.cfg_path)) as f:
                 test_frames = json.load(f)['frames']

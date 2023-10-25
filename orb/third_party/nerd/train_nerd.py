@@ -100,7 +100,7 @@ def eval_datasets(
 
     if os.getenv('NERD_GT_ENV_MAP') == '1':
         import glob
-        from imageint.constant import PROCESSED_SCENE_DATA_DIR
+        from orb.constant import PROCESSED_SCENE_DATA_DIR
         novel_sgs_iter = iter(sorted(glob.glob(os.path.join(PROCESSED_SCENE_DATA_DIR, os.environ['NERD_LIGHT_SCENE'], 'nerd_format/env_map/*/024_sg.npy'))))
     # Go over validation dataset
     with strategy.scope():

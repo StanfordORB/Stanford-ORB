@@ -10,7 +10,7 @@ from threading import local
 import numpy as np
 import torch
 import nvdiffrast.torch as dr
-import imageint
+import orb
 from . import util
 from . import renderutils as ru
 from . import optixutils as ou
@@ -106,8 +106,8 @@ def shade(
     if bsdf == 'pbr' or bsdf == 'diffuse' or bsdf == 'white':
         kd = torch.ones_like(kd) if bsdf == 'white' else kd
 
-        if hasattr(imageint.third_party, 'nvdiffrecmc'):
-            assert isinstance(lgt, (light.EnvironmentLight, imageint.third_party.nvdiffrecmc.render.light.EnvironmentLight)) and optix_ctx is not None
+        if hasattr(orb.third_party, 'nvdiffrecmc'):
+            assert isinstance(lgt, (light.EnvironmentLight, orb.third_party.nvdiffrecmc.render.light.EnvironmentLight)) and optix_ctx is not None
         ro = gb_pos + gb_normal*0.001
 
         global rnd_seed
