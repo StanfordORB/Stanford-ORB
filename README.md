@@ -17,7 +17,7 @@ This repository contains the evaluation tools, and the full dataset is availble 
 > __Real-World 3D Object Inverse Rendering Benchmark__  
 > [Zhengfei Kuang](https://zhengfeikuang.com), [Yunzhi Zhang](https://https://cs.stanford.edu/~yzzhang/), [Hong-Xing Yu](https://kovenyu.com/), [Samir Agarwala](https://samiragarwala.github.io/), [Shangzhe Wu](https://elliottwu.com/), [Jiajun Wu](https://jiajunwu.com/)
 > _NeurIPS 2023 Datasets and Benchmarks Track, December 2023_  
-> __[Project page](https://stanfordorb.github.io)&nbsp;/ [Paper](https://stanfordorb.github.io)&nbsp;/ [BibTeX](https://stanfordorb.github.io)__
+> __[Project page](https://stanfordorb.github.io)&nbsp;/ [Paper](https://arxiv.org/abs/2310.16044)__
 
 ## Dataset Structure
 
