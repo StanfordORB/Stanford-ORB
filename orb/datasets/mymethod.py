@@ -11,7 +11,6 @@ from pathlib import Path
 from pyquaternion import Quaternion
 
 
-# ln -s /viscam/projects/imageint/release/dataset /viscam/projects/imageint/yzzhang/imageint/data/stanfordorb
 LLFF_HDR_SCENE_DATA_DIR = os.path.join(PROJ_ROOT, 'data/stanfordorb/llff_colmap_HDR')
 LLFF_LDR_SCENE_DATA_DIR = os.path.join(PROJ_ROOT, 'data/stanfordorb/llff_colmap_LDR')
 BLENDER_HDR_SCENE_DATA_DIR = os.path.join(PROJ_ROOT, 'data/stanfordorb/blender_HDR')
@@ -320,6 +319,7 @@ if __name__ == "__main__":
     dataset = LLFFDataset(data_root=os.path.join(LLFF_HDR_SCENE_DATA_DIR, "baking_scene001"), split='train', hdr=True)
     for k, v in dataset[0].items():
         print(k, v.shape)
+
     dataset = LLFFDataset(data_root=os.path.join(LLFF_HDR_SCENE_DATA_DIR, "baking_scene001"), split='baking_scene002', hdr=True)
     for k, v in dataset[0].items():
         print(k, v.shape)
