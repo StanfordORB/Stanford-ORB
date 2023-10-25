@@ -1,8 +1,8 @@
-# Stanford-ORB: Real-World 3D Object Inverse Rendering Benchmark
+# Stanford-ORB: A Real-World 3D Object Inverse Rendering Benchmark
 
 This is the official repository of the <b>Stanford-ORB</b> dataset to test 3D object-centric inverse rendering models. 
 
-The Dataset consists of:
+The dataset consists of:
 
 - __2,795__ HDR images of __14__ objects captured in __7__ in-the-wild scenes;
 - __418__ HDR ground truth environment maps aligned with image captures;
@@ -11,7 +11,8 @@ The Dataset consists of:
 - Reported results of concurrent state-of-the-art models;
 - A full set of scripts & guideline to run the benchmarks.
 
-This repository contains the evaluation tools, and the full dataset is availble on our [project page](https://stanfordorb.github.io).
+This repository contains instructions for dataset downloads and evaluation tools.
+
 
 
 > __Real-World 3D Object Inverse Rendering Benchmark__  
@@ -21,7 +22,13 @@ This repository contains the evaluation tools, and the full dataset is availble 
 
 ## Dataset Structure
 
-Below is the overall structure of our dataset. Generally, we provide three commonly used representations of our data: The synthetic blender representation from NeRF, The representation from LLFF, and the vanilla COLMAP representation. We provide the LDR and HDR version of all images. 
+Below is the overall structure of our dataset. The dataset is provided under three commonly used representations with LDR and HDR captures: 
+1. The blender representation from the NeRF blender dataset (`blender_HDR/LDR`);
+2. The LLFF representation (`llff_colmap_HDR/LDR`);
+3. The COLMAP representation(`llff_colmap_HDR/LDR`).
+
+Download links are provided on the [project page](https://stanfordorb.github.io).
+
 ```
 data	
 ----- blender_HDR/LDR		
@@ -57,7 +64,7 @@ While most part of our data are identical to the original representations, some 
 
 First, we provide object masks for all images, stored in the folder of ``*_mask`` for blender representation and ``masks`` for LLFF/Colmap representation. Feel free to use/ignore them during the training.
 
-Second, to support the task of relighting, in each data folder (e.g. baking_scene001) we also provide the camera poses of test images from other scenes (e.g. baking_scene002 and baking_scene003). In the blender representation, the data is stored in ``transforms_novel.json``; In the LLFF representation it's stored in ``novel_id.txt`` and ``poses_bounds_novel.npy``; In the COLMAP representation it's stored in ``sparse/<novel_scene_name>/*.bin``. Note that all the novel camera poses are transformed to align with the original poses, so no further adaptation is required for the users. In other words, you can directly use them as additional test poses. See the evaluation section for more details.
+Second, to support the task of relighting, in each data folder (e.g. `baking_scene001`), we also provide the camera poses of test images from other scenes (e.g. `baking_scene002` and `baking_scene003`). In the blender representation, the data is stored in ``transforms_novel.json``; In the LLFF representation it's stored in ``novel_id.txt`` and ``poses_bounds_novel.npy``; In the COLMAP representation it's stored in ``sparse/<novel_scene_name>/*.bin``. Note that all the novel camera poses are transformed to align with the original poses, so no further adaptation is required for the users. In other words, you can directly use them as additional test poses as shown in the example dataloader [here](https://github.com/StanfordORB/Stanford-ORB/blob/9a559af9de855a0f37f96dd2670c9a5f970e22c0/orb/datasets/mymethod.py#L323). 
 
 ## Evaluation
 Save the output of your method following [this](./examples/test/mymethod.json) example, and run the following:

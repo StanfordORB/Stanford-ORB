@@ -316,26 +316,26 @@ BlenderLDRDataset = partial(BlenderDataset, hdr=False)
 
 
 if __name__ == "__main__":
-    dataset = LLFFDataset(data_root=os.path.join(LLFF_HDR_SCENE_DATA_DIR, "baking_scene001"), split='train', hdr=True)
+    dataset = LLFFHDRDataset(data_root=os.path.join(LLFF_HDR_SCENE_DATA_DIR, "baking_scene001"), split='train')
     for k, v in dataset[0].items():
         print(k, v.shape)
 
-    dataset = LLFFDataset(data_root=os.path.join(LLFF_HDR_SCENE_DATA_DIR, "baking_scene001"), split='baking_scene002', hdr=True)
+    dataset = LLFFHDRDataset(data_root=os.path.join(LLFF_HDR_SCENE_DATA_DIR, "baking_scene001"), split='baking_scene002')
     for k, v in dataset[0].items():
         print(k, v.shape)
 
-    dataset = LLFFDataset(data_root=os.path.join(LLFF_LDR_SCENE_DATA_DIR, "baking_scene001"), split='test', hdr=False)
+    dataset = LLFFLDRDataset(data_root=os.path.join(LLFF_LDR_SCENE_DATA_DIR, "baking_scene001"), split='test')
     for k, v in dataset[0].items():
         print(k, v.shape)
 
-    dataset = BlenderDataset(data_root=os.path.join(BLENDER_HDR_SCENE_DATA_DIR, 'baking_scene001'), split='train', hdr=True)
+    dataset = BlenderHDRDataset(data_root=os.path.join(BLENDER_HDR_SCENE_DATA_DIR, 'baking_scene001'), split='train')
     for k, v in dataset[0].items():
         print(k, v.shape)
 
-    dataset = BlenderDataset(data_root=os.path.join(BLENDER_HDR_SCENE_DATA_DIR, 'baking_scene001'), split='baking_scene002', hdr=True)
+    dataset = BlenderHDRDataset(data_root=os.path.join(BLENDER_HDR_SCENE_DATA_DIR, 'baking_scene001'), split='baking_scene002')
     for k, v in dataset[0].items():
         print(k, v.shape)
 
-    dataset = BlenderDataset(data_root=os.path.join(BLENDER_LDR_SCENE_DATA_DIR, 'baking_scene001'), split='test', hdr=False)
+    dataset = BlenderLDRDataset(data_root=os.path.join(BLENDER_LDR_SCENE_DATA_DIR, 'baking_scene001'), split='test')
     for k, v in dataset[0].items():
         print(k, v.shape)
