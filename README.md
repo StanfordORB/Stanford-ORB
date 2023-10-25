@@ -71,9 +71,6 @@ Coming Soon
 
 ## Training
 
-
-#### Dataloaders
-
 Examples of dataloader are provided [here](./orb/datasets/mymethod.py).
 
 ## Acknowledgement
