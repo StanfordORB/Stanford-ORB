@@ -73,6 +73,17 @@ Coming Soon
 
 ## Acknowledgement
 
+```bibtex
+@misc{kuang2023stanfordorb,
+      title={Stanford-ORB: A Real-World 3D Object Inverse Rendering Benchmark}, 
+      author={Zhengfei Kuang and Yunzhi Zhang and Hong-Xing Yu and Samir Agarwala and Shangzhe Wu and Jiajun Wu},
+      year={2023},
+      eprint={2310.16044},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
 <!-- 
 ## Installation
 
