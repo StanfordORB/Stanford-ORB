@@ -1,6 +1,6 @@
 # Stanford-ORB: Real-World 3D Object Inverse Rendering Benchmark
 
-This is the official repository of the <b>Stanford-Orb</b> dataset to test 3D object-centric inverse rendering models. 
+This is the official repository of the <b>Stanford-ORB</b> dataset to test 3D object-centric inverse rendering models. 
 
 The Dataset consists of:
 
