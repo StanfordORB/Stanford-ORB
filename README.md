@@ -59,19 +59,22 @@ First, we provide object masks for all images, stored in the folder of ``*_mask`
 
 Second, to support the task of relighting, in each data folder (e.g. baking_scene001) we also provide the camera poses of test images from other scenes (e.g. baking_scene002 and baking_scene003). In the blender representation, the data is stored in ``transforms_novel.json``; In the LLFF representation it's stored in ``novel_id.txt`` and ``poses_bounds_novel.npy``; In the COLMAP representation it's stored in ``sparse/<novel_scene_name>/*.bin``. Note that all the novel camera poses are transformed to align with the original poses, so no further adaptation is required for the users. In other words, you can directly use them as additional test poses. See the evaluation section for more details.
 
-## Training 
-
-Coming Soon
-
-## Evaluation 
+## Evaluation
 Save the output of your method following [this](./examples/test/mymethod.json) example, and run the following:
+
 ```bash
 python scripts/test.py --input-path examples/test/mymethod.json --output-path examples/scores/mymethod.json --scenes example
 ```
-
 ## Result Visualization
 
 Coming Soon
+
+## Training
+
+
+#### Dataloaders
+
+Examples of dataloader are provided [here](./orb/datasets/mymethod.py).
 
 ## Acknowledgement
 

@@ -18,13 +18,15 @@
                     "output_depth": "examples/test/mymethod/scene001_obj018_teapot/depth_000000.exr",
                     "target_depth": "examples/data/scene001_obj018_teapot/z_maps/0000.npy",
                     "output_normal": "examples/test/mymethod/scene001_obj018_teapot/normal_000000.exr",
-                    "target_normal": "examples/data/scene001_obj018_teapot/normal_maps/0000.npy"
+                    "target_normal": "examples/data/scene001_obj018_teapot/normal_maps/0000.npy",
+                    "target_mask": "examples/data/scene001_obj018_teapot/test_mask/0000.png"
                 }
             ],
             "material": [
                 {
                     "output_image": "examples/test/mymethod/scene001_obj018_teapot/val_000000_kd.png",
-                    "target_image": "examples/data/scene001_obj018_teapot/albedo_maps/0000.png"
+                    "target_image": "examples/data/scene001_obj018_teapot/albedo_maps/0000.png",
+                    "target_mask": "examples/data/scene001_obj018_teapot/test_mask/0000.png"
                 }
             ],
             "shape": {
