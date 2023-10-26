@@ -72,17 +72,17 @@ With the dataset downloaded, you can train/test you model within only a few step
 
 ### 1. Training
 
-We provide the example dataloaders for all structures [here](./orb/datasets/mymethod.py). Select one of the data dataloaders that best fit your method, and integrate it to your code. 
+We provide the example dataloaders for all structures [here](./orb/datasets/mymethod.py). Select one of the data dataloaders that best fits your method, and integrate it to your code. 
 
-For accurate evaluation, your model must be trained by each capture separately, which results in 42 sets of learned weights in total.
+Note: For accurate evaluation, your model must be trained by each capture separately (42 times in total). 
 
 ### 2.Inferring
 
-Once the model is trained with a capture (e.g. `baking_scene001`), 
+Once your model is trained with one capture (e.g. `baking_scene001`), 
 evaluation is done with the test data from the same capture (denoted as <i>test dataset</i> below) 
-and from other captures of the same object, such as `baking_scene002` and `baking_scene003` (denoted as <i>novel datasets</i> below).
+and the data from other captures of the same object, such as `baking_scene002` and `baking_scene003` (denoted as <i>novel datasets</i> below).
 
-Here we explain the input and output of each benchmark test:
+Here we explain the input and output of our benchmark tests:
 
 - Novel View Synthesis
   - Input 1: Poses from the test dataset;
@@ -97,7 +97,8 @@ Here we explain the input and output of each benchmark test:
   - Output 2: Rendered camera-space normal maps of the test views. (in .npy format)
   - Output 3: Reconstructed 3D mesh. (in .obj format)
 
-Pack up the paths to all your predictions and the corresponding ground truths in a json file,
+Run your model trained with each capture to get the required outputs,
+Then pack up the paths to your predictions and the corresponding ground truths in a json file,
 using the same structure as [this example](./examples/test/mymethod.json).
 
 ### 3.Evaluation
