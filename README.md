@@ -9,20 +9,20 @@ The dataset consists of:
 - Textured scanned mesh of __14__ objects captured from studio;
 - Comphehensive benchmarks for evaluating the inverse rendering methods;
 - Reported results of concurrent state-of-the-art models;
-- A full set of scripts & guideline to run the benchmarks.
+- A full set of scripts and guidelines to run the benchmarks.
 
 This repository contains instructions for dataset downloads and evaluation tools.
 
 
 
-> __Real-World 3D Object Inverse Rendering Benchmark__  
-> [Zhengfei Kuang](https://zhengfeikuang.com), [Yunzhi Zhang](https://https://cs.stanford.edu/~yzzhang/), [Hong-Xing Yu](https://kovenyu.com/), [Samir Agarwala](https://samiragarwala.github.io/), [Shangzhe Wu](https://elliottwu.com/), [Jiajun Wu](https://jiajunwu.com/)
+> __Stanford-ORB: A Real-World 3D Object Inverse Rendering Benchmark__  
+>[Zhengfei Kuang*](https://zhengfeikuang.com), [Yunzhi Zhang*](https://ai.stanford.edu/~yzzhang/), [Hong-Xing Yu](https://kovenyu.com/), [Samir Agarwala](https://samiragarwala.github.io/), [Shangzhe Wu](https://elliottwu.com/), [Jiajun Wu](https://jiajunwu.com/)
 > _NeurIPS 2023 Datasets and Benchmarks Track, December 2023_  
-> __[Project page](https://stanfordorb.github.io)&nbsp;/ [Paper](https://arxiv.org/abs/2310.16044)__
+> __[Project Page](https://stanfordorb.github.io)&nbsp;/&nbsp;[Paper](https://arxiv.org/abs/2310.16044)__
 
 ## Dataset Structure
 
-Below is the overall structure of our dataset. The dataset is provided under three commonly used representations with LDR and HDR captures: 
+The dataset is provided under three commonly used representations with LDR and HDR versions: 
 1. The blender representation from the NeRF blender dataset (`blender_HDR/LDR`);
 2. The LLFF representation (`llff_colmap_HDR/LDR`);
 3. The COLMAP representation(`llff_colmap_HDR/LDR`).
@@ -62,7 +62,7 @@ data
 
 While most part of our data are identical to the original representations, some nuances still exist.
 
-First, we provide object masks for all images, stored in the folder of ``*_mask`` for blender representation and ``masks`` for LLFF/Colmap representation. Feel free to use/ignore them during the training.
+First, we provide object masks for all images, stored in the folder of ``*_mask`` for blender representation and ``masks`` for LLFF/Colmap representation. Feel free to use/ignore them during training.
 
 Second, to support the task of relighting, in each data folder (e.g. `baking_scene001`), we also provide the camera poses of test images from other scenes (e.g. `baking_scene002` and `baking_scene003`). In the blender representation, the data is stored in ``transforms_novel.json``; In the LLFF representation it's stored in ``novel_id.txt`` and ``poses_bounds_novel.npy``; In the COLMAP representation it's stored in ``sparse/<novel_scene_name>/*.bin``. Note that all the novel camera poses are transformed to align with the original poses, so no further adaptation is required for the users. In other words, you can directly use them as additional test poses as shown in the example dataloader [here](https://github.com/StanfordORB/Stanford-ORB/blob/9a559af9de855a0f37f96dd2670c9a5f970e22c0/orb/datasets/mymethod.py#L323). 
 
@@ -80,7 +80,7 @@ Coming Soon
 
 Dataloader examples are provided [here](./orb/datasets/mymethod.py).
 
-## Acknowledgement
+## Citation
 
 ```bibtex
 @misc{kuang2023stanfordorb,
