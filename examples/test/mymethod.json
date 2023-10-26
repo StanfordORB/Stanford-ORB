@@ -1,37 +1,37 @@
 {
     "info": {
-        "scene001_obj018_teapot": {
+        "teapot_scene001": {
             "view": [
                 {
-                    "output_image": "examples/test/mymethod/scene001_obj018_teapot/val_000000_opt.png",
-                    "target_image": "examples/data/scene001_obj018_teapot/test/0000.exr"
+                    "output_image": "examples/test/mymethod/teapot_scene001/val_000000_opt.png",
+                    "target_image": "examples/data/teapot_scene001/test/0000.exr"
                 }
             ],
             "light": [
                 {
-                    "output_image": "examples/test/mymethod/scene001_obj018_teapot/scene006_obj018_teapot/val_000010_opt.png",
-                    "target_image": "examples/data/scene006_obj018_teapot/test/0061.exr"
+                    "output_image": "examples/test/mymethod/teapot_scene001/scene006_obj018_teapot/val_000010_opt.png",
+                    "target_image": "examples/data/teapot_scene006/test/0061.exr"
                 }
             ],
             "geometry": [
                 {
-                    "output_depth": "examples/test/mymethod/scene001_obj018_teapot/depth_000000.exr",
-                    "target_depth": "examples/data/scene001_obj018_teapot/z_maps/0000.npy",
-                    "output_normal": "examples/test/mymethod/scene001_obj018_teapot/normal_000000.exr",
-                    "target_normal": "examples/data/scene001_obj018_teapot/normal_maps/0000.npy",
-                    "target_mask": "examples/data/scene001_obj018_teapot/test_mask/0000.png"
+                    "output_depth": "examples/test/mymethod/teapot_scene001/depth_000000.exr",
+                    "target_depth": "examples/data/teapot_scene001/z_maps/0000.npy",
+                    "output_normal": "examples/test/mymethod/teapot_scene001/normal_000000.exr",
+                    "target_normal": "examples/data/teapot_scene001/normal_maps/0000.npy",
+                    "target_mask": "examples/data/teapot_scene001/test_mask/0000.png"
                 }
             ],
             "material": [
                 {
-                    "output_image": "examples/test/mymethod/scene001_obj018_teapot/val_000000_kd.png",
-                    "target_image": "examples/data/scene001_obj018_teapot/albedo_maps/0000.png",
-                    "target_mask": "examples/data/scene001_obj018_teapot/test_mask/0000.png"
+                    "output_image": "examples/test/mymethod/teapot_scene001/val_000000_kd.png",
+                    "target_image": "examples/data/teapot_scene001/albedo_maps/0000.png",
+                    "target_mask": "examples/data/teapot_scene001/test_mask/0000.png"
                 }
             ],
             "shape": {
-                "output_mesh": "examples/test/mymethod/scene001_obj018_teapot/output_mesh_world.obj",
-                "target_mesh": "examples/data/scene001_obj018_teapot/mesh.obj"
+                "output_mesh": "examples/test/mymethod/teapot_scene001/output_mesh_world.obj",
+                "target_mesh": "examples/data/teapot_scene001/mesh.obj"
             }
         }
     }

@@ -9,20 +9,20 @@ The dataset consists of:
 - Textured scanned mesh of __14__ objects captured from studio;
 - Comphehensive benchmarks for evaluating the inverse rendering methods;
 - Reported results of concurrent state-of-the-art models;
-- A full set of scripts & guideline to run the benchmarks.
+- A full set of scripts and guidelines to run the benchmarks.
 
 This repository contains instructions for dataset downloads and evaluation tools.
 
 
 
-> __Real-World 3D Object Inverse Rendering Benchmark__  
-> [Zhengfei Kuang](https://zhengfeikuang.com), [Yunzhi Zhang](https://https://cs.stanford.edu/~yzzhang/), [Hong-Xing Yu](https://kovenyu.com/), [Samir Agarwala](https://samiragarwala.github.io/), [Shangzhe Wu](https://elliottwu.com/), [Jiajun Wu](https://jiajunwu.com/)
+> __Stanford-ORB: A Real-World 3D Object Inverse Rendering Benchmark__  
+>[Zhengfei Kuang*](https://zhengfeikuang.com), [Yunzhi Zhang*](https://ai.stanford.edu/~yzzhang/), [Hong-Xing Yu](https://kovenyu.com/), [Samir Agarwala](https://samiragarwala.github.io/), [Shangzhe Wu](https://elliottwu.com/), [Jiajun Wu](https://jiajunwu.com/)
 > _NeurIPS 2023 Datasets and Benchmarks Track, December 2023_  
-> __[Project page](https://stanfordorb.github.io)&nbsp;/ [Paper](https://arxiv.org/abs/2310.16044)__
+> __[Project Page](https://stanfordorb.github.io)&nbsp;/&nbsp;[Paper](https://arxiv.org/abs/2310.16044)__
 
 ## Dataset Structure
 
-Below is the overall structure of our dataset. The dataset is provided under three commonly used representations with LDR and HDR captures: 
+The dataset is provided under three commonly used representations with LDR and HDR versions: 
 1. The blender representation from the NeRF blender dataset (`blender_HDR/LDR`);
 2. The LLFF representation (`llff_colmap_HDR/LDR`);
 3. The COLMAP representation(`llff_colmap_HDR/LDR`).
@@ -62,10 +62,9 @@ data
 
 While most part of our data are identical to the original representations, some nuances still exist.
 
-First, we provide object masks for all images, stored in the folder of ``*_mask`` for blender representation and ``masks`` for LLFF/Colmap representation. Feel free to use/ignore them during the training.
+First, we provide object masks for all images, stored in the folder of ``*_mask`` for blender representation and ``masks`` for LLFF/Colmap representation. Feel free to use/ignore them during training.
 
 Second, to support the task of relighting, in each data folder (e.g. `baking_scene001`), we also provide the camera poses of test images from other scenes (e.g. `baking_scene002` and `baking_scene003`). In the blender representation, the data is stored in ``transforms_novel.json``; In the LLFF representation it's stored in ``novel_id.txt`` and ``poses_bounds_novel.npy``; In the COLMAP representation it's stored in ``sparse/<novel_scene_name>/*.bin``. Note that all the novel camera poses are transformed to align with the original poses, so no further adaptation is required for the users. In other words, you can directly use them as additional test poses as shown in the example dataloader [here](https://github.com/StanfordORB/Stanford-ORB/blob/9a559af9de855a0f37f96dd2670c9a5f970e22c0/orb/datasets/mymethod.py#L323). 
-
 
 ## Quick Start
 
@@ -79,27 +78,27 @@ For accurate evaluation, your model must be trained by each capture separately, 
 
 ### 2.Inferring
 
-One the model is trained with a certain capture (e.g. `baking_scene001`), 
-evaluation is done with the test data from this capture (denoted as <i>test dataset</i> below) 
-and other captures of the same object, such as `baking_scene002` and `baking_scene003` (denoted as <i>novel datasets</i> below).
+Once the model is trained with a capture (e.g. `baking_scene001`), 
+evaluation is done with the test data from the same capture (denoted as <i>test dataset</i> below) 
+and from other captures of the same object, such as `baking_scene002` and `baking_scene003` (denoted as <i>novel datasets</i> below).
 
-Here we explain the input and output of each benchmark tests:
+Here we explain the input and output of each benchmark test:
 
 - Novel View Synthesis
   - Input 1: Poses from the test dataset;
-  - Output 1: Rendered LDR/HDR images of the test views.
+  - Output 1: Rendered LDR/HDR images of the test views. (in .jpg/.png/.exr format)
 - Relighting: 
   - Input 1: Poses from novel datasets;
   - Input 2: Ground truth environment maps of the test views (located in ground_truth/<capture_name>/env_map);
-  - Output 1: Rendered LDR/HDR images of the test views.
+  - Output 1: Rendered LDR/HDR images of the test views. (in .jpg/.png/.exr format)
 - Geometry Estimation: 
-  - Input 1: Poses from test dataset;
-  - Output 1: Rendered Z-depth maps of the test views.
-  - Output 2: Rendered camera-space normal maps of the test views.
-  - Output 3: Reconstructed 3D mesh.
+  - Input 1: Poses from the test dataset;
+  - Output 1: Rendered Z-depth maps of the test views. (in .npy format)
+  - Output 2: Rendered camera-space normal maps of the test views. (in .npy format)
+  - Output 3: Reconstructed 3D mesh. (in .obj format)
 
-Pack up the path to all predictions and the corresponding ground truths in a json file,
-in the same structure as [this example](./examples/test/mymethod.json).
+Pack up the paths to all your predictions and the corresponding ground truths in a json file,
+using the same structure as [this example](./examples/test/mymethod.json).
 
 ### 3.Evaluation
 
@@ -111,17 +110,16 @@ python scripts/test.py --input-path <path_to_input_json_file> --output-path <pat
 Ta-da! All evaluation results (summed-up scores and per-capture scores) will be wrote to the output json file.
 
 ### 4.Result Visualization
-To further generate visulization figures as in our paper, first install several required packages:
+To draw visulization figures as in our paper, first install the following required packages:
 ```bash
 pip install numpy matplotlib glob2 tqdm seaborn==0.12.2 pandas==1.4.4 scipy==1.9.1 
 ```
 Then, move the output json file to `visulize/methods/<your_method_name>.json`.
-Add your model's name in `visulize/visualize.ipynb` and run it. 
-It will automaticly load your scores and generate the figure.
+Add your model's name in `visulize/visualize.ipynb` and run the script to draw the figure.
 
-Feel free to play with the visualize script for better layout.
+Feel free to play with the script for better looking.
 
-## Acknowledgement
+## Citation
 
 ```bibtex
 @misc{kuang2023stanfordorb,
@@ -133,3 +131,6 @@ Feel free to play with the visualize script for better layout.
       primaryClass={cs.CV}
 }
 ```
+
+
+
