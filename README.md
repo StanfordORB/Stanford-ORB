@@ -76,7 +76,7 @@ We provide the example dataloaders for all structures [here](./orb/datasets/myme
 
 Note: For accurate evaluation, your model must be trained by each capture separately (42 times in total). 
 
-### 2.Inferring
+### 2.Inference
 
 Once your model is trained with one capture (e.g. `baking_scene001`), 
 evaluation is done with the test data from the same capture (denoted as <i>test dataset</i> below) 
@@ -98,17 +98,21 @@ Here we explain the input and output of our benchmark tests:
   - Output 3: Reconstructed 3D mesh. (in .obj format)
 
 Run your model trained with each capture to get the required outputs,
-Then pack up the paths to your predictions and the corresponding ground truths in a json file,
-using the same structure as [this example](./examples/test/mymethod.json).
+Then pack up the paths to your predictions and the corresponding ground truths in a json file. To do so, you may adapt [this example script](./orb/pipelines/mymethod.py) and run 
+```bash
+python python scripts/test_cache.py --method mymethod --output_path <path_to_test_results_json_file> 
+```
+A json file with the same structure as [this example](./examples/test/mymethod.json) will be generated
+.
 
 ### 3.Evaluation
 
 Simply run this one-line command:
 ```bash
-python scripts/test.py --input-path <path_to_input_json_file> --output-path <path_to_output_json_file> --scenes full
+python scripts/test.py --input-path <path_to_test_results_json_file> --output-path <path_to_test_scores_json_file> --scenes full
 ```
 
-Ta-da! All evaluation results (summed-up scores and per-capture scores) will be wrote to the output json file.
+Ta-da! All evaluation results (summed-up scores and per-capture scores) will be written to the output json file.
 
 ### 4.Result Visualization
 To draw visulization figures as in our paper, first install the following required packages:
