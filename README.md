@@ -7,7 +7,7 @@ The dataset consists of:
 - __2,795__ HDR images of __14__ objects captured in __7__ in-the-wild scenes;
 - __418__ HDR ground truth environment maps aligned with image captures;
 - Textured scanned mesh of __14__ objects captured from studio;
-- Comphehensive benchmarks for evaluating the inverse rendering methods;
+- Comprehensive benchmarks for evaluating the inverse rendering methods;
 - Reported results of concurrent state-of-the-art models;
 - A full set of scripts and guidelines to run the benchmarks.
 
@@ -68,11 +68,11 @@ Second, to support the task of relighting, in each data folder (e.g. `baking_sce
 
 ## Quick Start
 
-With the dataset downloaded, you can train/test you model within only a few steps:
+With the dataset downloaded, you can train/test your model within only a few steps:
 
 ### 1. Training
 
-We provide the example dataloaders for all structures [here](./orb/datasets/mymethod.py). Select one of the data dataloaders that best fits your method, and integrate it to your code. 
+We provide the example dataloaders for all structures [here](./orb/datasets/mymethod.py). Select one of the data dataloaders that best fits your method, and integrate it into your code. 
 
 Note: For accurate evaluation, your model must be trained by each capture separately (42 times in total). 
 
@@ -100,12 +100,12 @@ Here we explain the input and output of our benchmark tests:
 Run your model trained with each capture to get the required outputs, and then pack up the paths to your predictions and the corresponding ground truths in a json file.
 To do so, you may adapt [this example script](./orb/pipelines/mymethod.py) and run 
 ```bash
-python python scripts/test_cache.py --method mymethod --output_path <path_to_test_results_json_file> 
+python scripts/test_cache.py --method mymethod --output_path <path_to_test_results_json_file> 
 ```
 A json file with the same structure as [this example](./examples/test/mymethod.json) will be generated
 .
 
-### 3.Evaluation
+### 3. Evaluation
 
 Evaluation requires the following conda environment:
 ```bash
@@ -127,15 +127,15 @@ python scripts/test.py --input-path <path_to_test_results_json_file> --output-pa
 
 Ta-da! All evaluation results (summed-up scores and per-capture scores) will be written to the output json file.
 
-### 4.Result Visualization
-To draw visulization figures as in our paper, first install the following required packages:
+### 4. Result Visualization
+To draw visualization figures as in our paper, first, install the following required packages:
 ```bash
 pip install numpy matplotlib glob2 tqdm seaborn==0.12.2 pandas==1.4.4 scipy==1.9.1 
 ```
 Then, move the output json file to `visulize/methods/<your_method_name>.json`.
 Add your model's name in `visulize/visualize.ipynb` and run the script to draw the figure.
 
-Feel free to play with the script for better looking.
+Feel free to play with the script for a better look.
 
 ## Citation
 
