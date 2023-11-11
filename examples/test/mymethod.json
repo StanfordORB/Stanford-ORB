@@ -9,7 +9,7 @@
             ],
             "light": [
                 {
-                    "output_image": "examples/test/mymethod/teapot_scene001/scene006_obj018_teapot/val_000010_opt.png",
+                    "output_image": "examples/test/mymethod/teapot_scene001/teapot_scene006/val_000010_opt.png",
                     "target_image": "examples/data/teapot_scene006/test/0061.exr"
                 }
             ],

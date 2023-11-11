@@ -97,8 +97,8 @@ Here we explain the input and output of our benchmark tests:
   - Output 2: Rendered camera-space normal maps of the test views. (in .npy format)
   - Output 3: Reconstructed 3D mesh. (in .obj format)
 
-Run your model trained with each capture to get the required outputs,
-Then pack up the paths to your predictions and the corresponding ground truths in a json file. To do so, you may adapt [this example script](./orb/pipelines/mymethod.py) and run 
+Run your model trained with each capture to get the required outputs, and then pack up the paths to your predictions and the corresponding ground truths in a json file.
+To do so, you may adapt [this example script](./orb/pipelines/mymethod.py) and run 
 ```bash
 python python scripts/test_cache.py --method mymethod --output_path <path_to_test_results_json_file> 
 ```
@@ -106,6 +106,19 @@ A json file with the same structure as [this example](./examples/test/mymethod.j
 .
 
 ### 3.Evaluation
+
+Evaluation requires the following conda environment:
+```bash
+# Tested on python 3.9 or above
+conda create -n orb python=3.9
+conda activate orb
+# Install PyEXR
+pip install git+https://github.com/jamesbowman/openexrpython.git (dependency) # or try `conda install -c conda-forge openexr-python`
+pip install git+https://github.com/tvogels/pyexr.git
+# Install other packages
+pip install tqdm PyEXR trimesh lpips kornia
+pip install scipy opencv-python matplotlib imageio[ffmpeg]
+```
 
 Simply run this one-line command:
 ```bash

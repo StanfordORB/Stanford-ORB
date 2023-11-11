@@ -1,4 +1,4 @@
-def list_of_dicts__to__dict_of_lists(lst: list | tuple):
+def list_of_dicts__to__dict_of_lists(lst):
     """
     ```
     x = [
