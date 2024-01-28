@@ -137,6 +137,18 @@ Add your model's name in `visulize/visualize.ipynb` and run the script to draw t
 
 Feel free to play with the script for a better look.
 
+### 5. How to upload your scores/results
+If you'd like to upload your results and scores to our website, please open an issue in this repo with the title "Uploading new results: \<your model name\>", and provide the following informations:
+
+* Name of your model, the paper/website link
+* A selection of the benchmarks that you'd like to test;
+* All testing results from your model (including 3D mesh, relit/novel view images (LDR and HDR) and depth/normal maps, albedo maps are not required);
+* A json file similar to [this example](./examples/test/mymethod.json), containing the paths to the result files;
+* [Optional] The evaluation scores you get.
+
+After receiving your request, we will verify the scores shortly and update your scores to our website.
+
+
 ## Citation
 
 ```bibtex
