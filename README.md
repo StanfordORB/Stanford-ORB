@@ -127,6 +127,8 @@ python scripts/test.py --input-path <path_to_test_results_json_file> --output-pa
 
 Ta-da! All evaluation results (summed-up scores and per-capture scores) will be written to the output json file.
 
+<b>Important Note</b>: In the paper we stated that the chamfer distances are multiplied by $10^3$ in the table. However, the table numbers are actually $2 \times 10^3$ times the numbers in the json file. Sorry for confusion and please make sure to use the right scale.
+
 ### 4. Result Visualization
 To draw visualization figures as in our paper, first, install the following required packages:
 ```bash
