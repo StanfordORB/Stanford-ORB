@@ -147,6 +147,7 @@ If you'd like to upload your results and scores to our website, please open an i
 * All testing results from your model (including 3D mesh, relit/novel view images (LDR and HDR) and depth/normal maps. Albedo maps are not required);
 * A json file similar to [this example](./examples/test/mymethod.json), containing the paths to the result files;
 * [Optional] The evaluation scores you get.
+* [Optional] If your model runs with fewer training images than usual, you can also report the number of views in your submission. We will check that information in the paper and add it to the leaderboard as well.
 
 After receiving your request, we will verify the scores shortly and update your scores to our website.
 
