@@ -3,6 +3,7 @@ import os
 from typing import Optional
 import numpy as np
 import logging
+from orb.constant import INPUT_RESOLUTION
 
 logger = logging.getLogger(__name__)
 try:
@@ -70,7 +71,7 @@ def srgb_to_rgb(f: np.ndarray):
 def load_hdr_rgba(path, downsize_factor: Optional[int] = None) -> np.ndarray:
     rgb = load_rgb_exr(path, downsize_factor)
     mask = imageio.imread(os.path.join(os.path.dirname(path) + '_mask', os.path.basename(path).replace('.exr', '.png')))
-    assert mask.shape == (2048, 2048), mask.shape
+    assert mask.shape == (INPUT_RESOLUTION, INPUT_RESOLUTION), mask.shape
     assert mask.dtype == np.uint8, mask.dtype
     mask = (mask / 255).astype(np.float32)
     mask = cv2_downsize(mask, downsize_factor)
