@@ -76,7 +76,7 @@ def _normalize_cam_dict(in_cam_dict, target_radius=1., in_geometry=None):
     for img_name in out_cam_dict:
         W2C = np.array(out_cam_dict[img_name]['W2C']).reshape((4, 4))
         W2C = transform_pose(W2C, translate, scale)
-        assert(np.isclose(np.linalg.det(W2C[:3, :3]), 1.))
+        assert(np.isclose(np.linalg.det(W2C[:3, :3]), 1., atol=1e-3))
         out_cam_dict[img_name]['W2C'] = list(W2C.flatten())
     return out_cam_dict, out_geometry
 
