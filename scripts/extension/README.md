@@ -1,0 +1,52 @@
+#### Data Format
+
+```
+data	
+----- scene{i:03d}_<obj_name>
+    ----- final_output
+        ----- blender_format_HDR
+                ----- env_map/%04d.exr              (Ground truth HDRI environment maps (share the same name with the corresponding test image))
+                ----- test/%04d.exr                 (Test images in HDR)	
+                ----- test_mask/%04d.png            (Test mask images in LDR)	
+                ----- train/%04d.exr                (Train images in HDR)	
+                ----- train_mask/%04d.png           (Train mask images in LDR)	
+                ----- transforms_test.json          (Test metadata)	
+                ----- transforms_train.json         (Train metadata)	
+                ----- transforms_novel.json         (metadata of novel scene test images. Note that each frame has a unique camera angle)				
+        ----- blender_format_LDR
+                ----- test/%04d.png                 (Test images in LDR)	
+                ----- test_mask/%04d.png            (Test mask images in LDR)	
+                ----- train/%04d.png                (Train images in LDR)	
+                ----- train_mask/%04d.png           (Train mask images in LDR)	
+                ----- transforms_test.json          (Test metadata)	
+                ----- transforms_train.json         (Train metadata)	
+                ----- transforms_novel.json         (metadata of novel scene test images. Note that each frame has a unique camera angle)				
+        ----- llff_colmap_HDR
+                ----- env_map/%04d.exr              (Ground truth HDRI environment maps (share the same name with the corresponding test image))
+                ----- images/%04d.exr               (All images in HDR)
+                ----- masks/%04d.png                (All image masks in LDR)
+                ----- sparse/0/*.bin                (Colmap Files)	
+                ----- sparse/<nv_sn_name>/*.bin     (Colmap Files of novel scenes)	
+                ----- poses_bounds.npy              (LLFF's camera files)	
+                ----- train_id.txt                  (name of training images)	
+                ----- test_id.txt                   (name of test images)	
+                ----- novel_id.txt                  (name of test images from novel scenes)	
+                ----- poses_bounds_novel.npy        (camera poses of novel scene test images indexed by order of names in novel_id.txt)					
+        ----- llff_colmap_LDR
+                ----- images/%04d.png               (All images in LDR)
+                ----- masks/%04d.png                (All image masks in LDR)
+                ----- sparse/0/*.bin                (Colmap Files)	
+                ----- sparse/<nv_sn_name>/*.bin     (Colmap Files of novel scenes)	
+                ----- poses_bounds.npy              (LLFF's camera files)	
+                ----- train_id.txt                  (name of training images)	
+                ----- test_id.txt                   (name of test images)	
+                ----- novel_id.txt                  (name of test images from novel scenes)	
+                ----- poses_bounds_novel.npy        (camera poses of novel scene test images indexed by order of names in novel_id.txt)					
+        ----- geometry_outputs
+                ----- albedo_maps/%04d.png          (Albedo maps)
+                ----- normal_maps/%04d.png          (Ground truth surface normal maps)
+                ----- normal_maps/%04d.npy          (Ground truth surface normal maps)
+                ----- z_maps/%04d.png               (Ground truth Z-depth maps)
+                ----- z_maps/%04d.npy               (Ground truth Z-depth maps)
+                ----- pseudo_gt_mesh_spherify/mesh.obj       (Scanned Mesh aligned with the blender format data)
+```

@@ -1,0 +1,132 @@
+absl-py==0.15.0
+asttokens==2.2.1
+astunparse==1.6.3
+backcall==0.2.0
+cachetools==4.2.4
+certifi==2023.5.7
+charset-normalizer==3.1.0
+clang==5.0
+cmake==3.26.3
+ConfigArgParse @ file:///home/conda/feedstock_root/build_artifacts/configargparse_1633358864834/work
+contourpy @ file:///home/conda/feedstock_root/build_artifacts/contourpy_1673633650729/work
+cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
+decorator==5.1.1
+exceptiongroup==1.1.1
+executing==1.2.0
+ffmpeg-python==0.2.0
+filelock==3.12.0
+flake8==6.0.0
+flatbuffers==1.12
+fonttools @ file:///home/conda/feedstock_root/build_artifacts/fonttools_1683740465037/work
+future==0.18.3
+gast==0.4.0
+google-auth==1.35.0
+google-auth-oauthlib==0.4.6
+google-pasta==0.2.0
+grpcio==1.54.2
+h5py==3.1.0
+idna==3.4
+-e git+ssh://git@github.com/zzyunzhi/imageint.git@da3bf18509c0a4941edc1683bf1831b3a594a316#egg=imageint
+imageio @ file:///home/conda/feedstock_root/build_artifacts/imageio_1683031833737/work
+imageio-ffmpeg @ file:///home/conda/feedstock_root/build_artifacts/imageio-ffmpeg_1673483481485/work
+importlib-metadata==6.6.0
+importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1676919000169/work
+iniconfig==2.0.0
+ipdb==0.13.13
+ipython==8.12.2
+isort==5.12.0
+jedi==0.18.2
+Jinja2==3.1.2
+keras==2.6.0
+Keras-Preprocessing==1.1.2
+kiwisolver @ file:///home/conda/feedstock_root/build_artifacts/kiwisolver_1666805766046/work
+lit==16.0.5.post0
+lpips==0.1.4
+Markdown==3.4.3
+MarkupSafe==2.1.2
+matplotlib==3.3.4
+matplotlib-inline==0.1.6
+mccabe==0.7.0
+mpmath==1.3.0
+munkres==1.1.4
+networkx==3.1
+numpy==1.19.5
+nvidia-cublas-cu11==11.10.3.66
+nvidia-cuda-cupti-cu11==11.7.101
+nvidia-cuda-nvrtc-cu11==11.7.99
+nvidia-cuda-runtime-cu11==11.7.99
+nvidia-cudnn-cu11==8.5.0.96
+nvidia-cufft-cu11==10.9.0.58
+nvidia-curand-cu11==10.2.10.91
+nvidia-cusolver-cu11==11.4.0.1
+nvidia-cusparse-cu11==11.7.4.91
+nvidia-nccl-cu11==2.14.3
+nvidia-nvtx-cu11==11.7.91
+oauthlib==3.2.2
+opencv-python==4.4.0.42
+OpenEXR @ file:///home/conda/feedstock_root/build_artifacts/openexr-python_1667084635530/work
+opt-einsum==3.3.0
+ordered-set==4.1.0
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1681337016113/work
+parso==0.8.3
+pexpect==4.8.0
+pickleshare==0.7.5
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1680694290932/work
+pluggy==1.0.0
+ply==3.11
+plyfile==0.7.4
+prompt-toolkit==3.0.38
+protobuf==4.23.1
+ptyprocess==0.7.0
+pure-eval==0.2.2
+pyasn1==0.5.0
+pyasn1-modules==0.3.0
+pycodestyle==2.10.0
+PyEXR==0.3.8
+pyflakes==3.0.1
+Pygments==2.15.1
+PyLaTeX==1.4.1
+PyMCubes==0.1.4
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
+PyQt5==5.15.7
+PyQt5-sip==12.11.0
+pyquaternion==0.9.9
+pytest==7.3.1
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+PyWavelets==1.4.1
+requests==2.30.0
+requests-oauthlib==1.3.1
+rsa==4.9
+scikit-image==0.19.3
+scipy==1.10.1
+sip @ file:///home/conda/feedstock_root/build_artifacts/sip_1681995033338/work
+six==1.15.0
+stack-data==0.6.2
+sympy==1.12
+tensorboard==2.6.0
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.1
+tensorflow==2.6.2
+tensorflow-addons==0.14.0
+tensorflow-estimator==2.6.0
+termcolor==1.1.0
+tifffile==2023.4.12
+toml @ file:///home/conda/feedstock_root/build_artifacts/toml_1604308577558/work
+tomli @ file:///home/conda/feedstock_root/build_artifacts/tomli_1644342247877/work
+torch==2.0.1
+torchvision==0.15.2
+tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1684150223545/work
+tqdm==4.65.0
+traitlets==5.9.0
+trimesh==3.23.1
+triton==2.0.0
+tru==0.0.0
+tu==0.0.0
+typeguard==2.13.3
+typing-extensions==3.7.4.3
+unicodedata2 @ file:///home/conda/feedstock_root/build_artifacts/unicodedata2_1667239955025/work
+urllib3==2.0.2
+wcwidth==0.2.6
+Werkzeug==2.3.4
+wrapt==1.12.1
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1677313463193/work
