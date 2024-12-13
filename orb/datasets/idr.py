@@ -1,5 +1,6 @@
 import os
 from functools import partial
+import glob
 import json
 from orb.utils.preprocess import load_rgb_png, load_mask_png
 from orb.third_party.idr.code.preprocess.preprocess_cameras import get_Ps, get_normalization_function
@@ -14,6 +15,8 @@ from orb.third_party.idr.code.datasets.scene_dataset import SceneDataset
 from orb.constant import PROCESSED_SCENE_DATA_DIR
 import datetime
 from pathlib import Path
+from orb.utils.convert_cameras import llff_to_colmap
+from orb.constant import INPUT_RESOLUTION
 
 
 def get_all_mask_points(mask_paths, downsize_factor=None):
@@ -99,33 +102,79 @@ def preprocess_cameras(base_dir, downsize_factor=None):
     return cameras_new, image_paths, mask_paths
 
 
-def preprocess_cameras_core(base_dir, downsize_factor=None):
-    sparse_dir = os.path.join(base_dir, 'sparse/0')
-    colmap_cameras, colmap_images, colmap_points3D = read_model(sparse_dir, '.bin')
-    if len(colmap_cameras) != 1:
-        raise RuntimeError((base_dir, colmap_cameras))
-    cam, = colmap_cameras.values()
-    K = load_pinhole_camera(cam, downsize_factor)
+def preprocess_cameras_core_backup(base_dir, downsize_factor=None):
+    w2c_mats, _, hwf = llff_to_colmap(base_dir)
+    h, w, f = hwf
+    print('[DEBUG] loaded hwf from pose bounds', hwf)
 
+    K = np.eye(3)
+    K[0, 0] = f
+    K[1, 1] = f
+    K[0, 2] = w / 2
+    K[1, 2] = h / 2
+
+    if downsize_factor is not None:
+        print('applying downsize factor', downsize_factor)
+        K[:2, :] /= downsize_factor
     image_dir = os.path.join(base_dir, 'images')
     mask_dir = os.path.join(base_dir, 'masks')
+    img_names = [f for f in sorted(os.listdir(image_dir)) if f.endswith('JPG') or f.endswith('jpg') or f.endswith('png')]
     cameras_npz_format = {}
     image_paths = []
     mask_paths = []
     counter = 0
-    for cur_image in colmap_images.values():
-        img_name = cur_image.name
+    for img_name in img_names:
         image_paths.append(os.path.join(image_dir, img_name))
         mask_paths.append(os.path.join(mask_dir, img_name))
-
-        M = np.zeros((3, 4))
-        M[:, 3] = cur_image.tvec
-        M[:3, :3] = qvec2rotmat(cur_image.qvec)
-
+        M = w2c_mats[counter][:3, :]
         P = np.eye(4)
         P[:3, :] = K @ M
         cameras_npz_format['world_mat_%d' % counter] = P
         counter += 1
+    return cameras_npz_format, image_paths, mask_paths
+
+
+def preprocess_cameras_core(base_dir, downsize_factor=None):
+    sparse_dir = os.path.join(base_dir, 'sparse/0')
+    if os.path.exists(sparse_dir):
+        colmap_cameras, colmap_images, colmap_points3D = read_model(sparse_dir, '.bin')
+        if len(colmap_cameras) != 1:
+            raise RuntimeError((base_dir, colmap_cameras))
+        cam, = colmap_cameras.values()
+        K = load_pinhole_camera(cam, downsize_factor)
+
+        image_dir = os.path.join(base_dir, 'images')
+        mask_dir = os.path.join(base_dir, 'masks')
+        cameras_npz_format = {}
+        image_paths = []
+        mask_paths = []
+        counter = 0
+        for cur_image in colmap_images.values():
+            img_name = cur_image.name
+            image_paths.append(os.path.join(image_dir, img_name))
+            mask_paths.append(os.path.join(mask_dir, img_name))
+
+            M = np.zeros((3, 4))
+            M[:, 3] = cur_image.tvec
+            M[:3, :3] = qvec2rotmat(cur_image.qvec)
+
+            P = np.eye(4)
+            P[:3, :] = K @ M
+            cameras_npz_format['world_mat_%d' % counter] = P
+            counter += 1
+
+        # cameras_npz_format_backup, image_paths_backup, mask_paths_backup = preprocess_cameras_core_backup(base_dir, downsize_factor)
+        # if os.path.exists(sparse_dir):
+        #     for i in range(len(cameras_npz_format_backup)):
+        #         if not np.allclose(cameras_npz_format_backup['world_mat_%d' % i], cameras_npz_format['world_mat_%d' % i], atol=1e-3):
+        #             import ipdb; ipdb.set_trace()
+        #         if not image_paths_backup[i] == image_paths[i]:
+        #             import ipdb; ipdb.set_trace()
+        #         if not mask_paths_backup[i] == mask_paths[i]:
+        #             import ipdb; ipdb.set_trace()
+        #     print('[DEBUG] passed llff-colmap conversion check')
+    else:
+        cameras_npz_format, image_paths, mask_paths = preprocess_cameras_core_backup(base_dir, downsize_factor)
 
     # volsdf normalize cameras
     cameras = _normalize_cameras(cameras_npz_format, len(cameras_npz_format))
@@ -219,8 +268,9 @@ class Dataset(SceneDataset):
         self.sampling_idx = None
         self.train_cameras = train_cameras
 
-        input_image_shape = load_rgb_png(os.path.join(self.instance_dir, 'images', '0000.png')).shape
-        assert input_image_shape == (2048, 2048, 3), input_image_shape
+        first_input_image = next(iter(glob.glob(os.path.join(self.instance_dir, 'images', '*.png'))))  # assume all images have the same resolution
+        input_image_shape = load_rgb_png(first_input_image).shape
+        assert input_image_shape == (INPUT_RESOLUTION, INPUT_RESOLUTION, 3), input_image_shape
         downsize_factor = input_image_shape[0] / img_res[0]
         self.split = split
         camera_dict, image_paths, mask_paths = preprocess_cameras_split(self.instance_dir, downsize_factor=downsize_factor, split=self.split)

@@ -5,7 +5,7 @@ import imageio
 import glob
 import json
 from orb.utils.preprocess import load_mask_png, load_rgb_png
-from orb.constant import BENCHMARK_RESOLUTION
+from orb.constant import BENCHMARK_RESOLUTION, INPUT_RESOLUTION
 
 
 trans_t = lambda t : torch.Tensor([
@@ -47,7 +47,9 @@ def load_capture_data(basedir, testskip):
     metas['val'] = metas['test']
     splits = ['train', 'val', 'test']
 
-    factor = load_rgb_png(next(iter(glob.glob(os.path.join(basedir, "train", "*.png"))))).shape[0] // BENCHMARK_RESOLUTION
+    input_resolution = load_rgb_png(next(iter(glob.glob(os.path.join(basedir, "train", "*.png"))))).shape[0]
+    assert input_resolution == INPUT_RESOLUTION, f"Input resolution {input_resolution} does not match expected resolution {INPUT_RESOLUTION}"
+    factor = input_resolution / BENCHMARK_RESOLUTION
 
     all_imgs = []
     all_poses = []
@@ -63,7 +65,7 @@ def load_capture_data(basedir, testskip):
 
         for frame in meta['frames'][::skip]:
             rgb = load_rgb_png(os.path.join(basedir, frame["file_path"] + ".png"), downsize_factor=factor)
-            assert rgb.shape == (512, 512, 3)
+            assert rgb.shape == (BENCHMARK_RESOLUTION, BENCHMARK_RESOLUTION, 3)
             alpha = load_mask_png(os.path.join(basedir, os.path.dirname(frame['file_path']) + '_mask', os.path.basename(frame['file_path']) + '.png'), downsize_factor=factor).astype(np.float32)
             imgs.append(np.concatenate([rgb, alpha[..., None]], -1))
             poses.append(np.array(frame['transform_matrix']))
