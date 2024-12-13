@@ -83,7 +83,8 @@ class IDRTrainRunner():
         dataset_conf = self.conf.get_config('dataset')
         if kwargs['scan_id'] != '-1':
             dataset_conf['scan_id'] = kwargs['scan_id']
-
+        if kwargs['data_dir'] != '-1':
+            dataset_conf['data_dir'] = kwargs['data_dir']
         self.train_dataset = utils.get_class(self.conf.get_string('train.dataset_class'))(self.train_cameras,
                                                                                           **dataset_conf)
 

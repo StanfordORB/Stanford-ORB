@@ -19,6 +19,7 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint', default='latest',type=str,help='The checkpoint epoch number of the run to be used in case of continuing from a previous run.')
     parser.add_argument('--train_cameras', default=False, action="store_true", help='If set, optimizing also camera location.')
     parser.add_argument('--scan_id', type=str, default='-1', help='If set, taken to be the scan id.')
+    parser.add_argument('--data_dir', type=str, default='-1', help='Root data directory; read from config by default.')
 
     opt = parser.parse_args()
 
@@ -38,7 +39,8 @@ if __name__ == '__main__':
                                  timestamp=opt.timestamp,
                                  checkpoint=opt.checkpoint,
                                  scan_id=opt.scan_id,
-                                 train_cameras=opt.train_cameras
+                                 train_cameras=opt.train_cameras,
+                                 data_dir=opt.data_dir,
                                  )
 
     trainrunner.run()

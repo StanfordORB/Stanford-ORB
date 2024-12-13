@@ -18,6 +18,7 @@ from load_deepvoxels import load_dv_data
 from load_blender import load_blender_data
 from load_LINEMOD import load_LINEMOD_data
 from orb.datasets.nerf import load_capture_data
+from orb.datasets.nerf_llff import load_capture_llff_data
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -144,6 +145,8 @@ def render_path(render_poses, hwf, K, chunk, render_kwargs, gt_imgs=None, savedi
         H = H//render_factor
         W = W//render_factor
         focal = focal/render_factor
+
+        # FIXME need to change K
 
     rgbs = []
     disps = []
@@ -625,6 +628,38 @@ def train():
             images = images[...,:3]*images[...,-1:] + (1.-images[...,-1:])
         else:
             images = images[...,:3]
+    elif args.dataset_type == 'capture_llff':
+        images, poses, bds, render_poses, i_test = load_capture_llff_data(args.datadir, args.factor,
+                                                                  recenter=True, bd_factor=.75,
+                                                                  spherify=args.spherify)
+        hwf = poses[0,:3,-1]
+        poses = poses[:,:3,:4]
+        print('Loaded llff', images.shape, render_poses.shape, hwf, args.datadir)
+        if not isinstance(i_test, list):
+            i_test = [i_test]
+
+        if args.llffhold > 0:
+            print('Auto LLFF holdout,', args.llffhold)
+            i_test = np.arange(images.shape[0])[::args.llffhold]
+
+        i_val = i_test
+        i_train = np.array([i for i in np.arange(int(images.shape[0])) if
+                        (i not in i_test and i not in i_val)])
+
+        print('DEFINING BOUNDS')
+        if args.no_ndc:
+            near = np.ndarray.min(bds) * .9
+            far = np.ndarray.max(bds) * 1.
+            
+        else:
+            near = 0.
+            far = 1.
+        print('NEAR FAR', near, far)
+
+        if args.white_bkgd:
+            images = images[...,:3]*images[...,-1:] + (1.-images[...,-1:])
+        else:
+            images = images[...,:3]*images[...,-1:]
 
     else:
         print('Unknown dataset type', args.dataset_type, 'exiting')
@@ -852,6 +887,23 @@ def train():
     
         if i%args.i_print==0:
             tqdm.write(f"[TRAIN] Iter: {i} Loss: {loss.item()}  PSNR: {psnr.item()}")
+
+        if i % args.i_img == 0:
+            trainsavedir = os.path.join(basedir, expname, 'train')
+            os.makedirs(trainsavedir, exist_ok=True)
+
+            img_i = i_train[0]
+            target = images[img_i]
+            pose = poses[img_i, :3,:4]
+            render_factor = 2
+            with torch.no_grad():
+                rgb, disp, acc, extras = render(H // render_factor, W // render_factor, 
+                                                np.concatenate([K[:2] / render_factor, K[2:3]]), 
+                                                chunk=args.chunk // 4, c2w=pose, **render_kwargs_test)
+
+            imageio.imwrite(os.path.join(trainsavedir, '{:03d}.png'.format(i)), to8b(rgb.cpu().numpy()))
+            imageio.imwrite(os.path.join(trainsavedir, 'target.png'), to8b(target))
+
         """
             print(expname, i, psnr.numpy(), loss.numpy(), global_step.numpy())
             print('iter time {:.05f}'.format(dt))

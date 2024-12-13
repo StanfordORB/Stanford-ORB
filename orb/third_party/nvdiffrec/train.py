@@ -242,8 +242,8 @@ def validate(glctx, geometry, opt_material, lgt, dataset_validate, out_dir, FLAG
 
         if os.getenv('NVDIFFREC_GT_ENV_MAP') == '1':
             print('NVDIFFREC GT ENV MAP')
-            from imageint.utils.env_map import env_map_to_cam_to_world_by_convention
-            from imageint.utils.preprocess import load_rgb_exr
+            from orb.utils.env_map import env_map_to_cam_to_world_by_convention
+            from orb.utils.preprocess import load_rgb_exr
             from pathlib import Path
             scene = Path(dataset_validate.base_dir).parent.parent.name
             with open(os.path.join(dataset_validate.cfg_path)) as f:

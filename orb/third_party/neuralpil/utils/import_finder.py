@@ -41,7 +41,10 @@ def find_files_to_copy(toCheck, base_path="./"):
     Given a filename, returns a list of all source files in the current directory being
     used.
     """
-    importedItems = [toCheck]
+    if os.path.isabs(toCheck):
+        importedItems = [os.path.basename(toCheck)]
+    else:
+        importedItems = [toCheck]
 
     if base_path == "":
         base_path = "./"
