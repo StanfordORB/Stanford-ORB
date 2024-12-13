@@ -1,0 +1,9 @@
+name: dmodel
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - pytorch-cuda=11.7
+prefix: /viscam/u/yzzhang/miniconda3/envs/dmodel

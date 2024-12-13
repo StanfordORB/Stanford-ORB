@@ -1,0 +1,16 @@
+name: neuralpil
+channels:
+  - defaults
+dependencies:
+  - cudatoolkit=11.2
+  - numpy
+  - cudnn=8.1
+  - imagemagick
+  - matplotlib
+  - pip
+  - imageio-ffmpeg
+  - openexr-python
+  - python=3.8
+  - configargparse
+  - imageio
+prefix: /viscam/u/yzzhang/miniconda3/envs/neuralpil
