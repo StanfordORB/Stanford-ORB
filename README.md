@@ -11,7 +11,9 @@ The dataset consists of:
 - Reported results of concurrent state-of-the-art models;
 - A full set of scripts and guidelines to run the benchmarks.
 
-This repository contains instructions for dataset downloads and evaluation tools.
+This repository contains instructions for [dataset downloads](https://github.com/StanfordORB/Stanford-ORB?tab=readme-ov-file#dataset-structure), 
+[evaluation tools](https://github.com/StanfordORB/Stanford-ORB?tab=readme-ov-file#quick-start), 
+and [reproducing baselines](https://github.com/StanfordORB/Stanford-ORB?tab=readme-ov-file#baseline-methods).
 
 
 
@@ -151,20 +153,20 @@ If you'd like to upload your results and scores to our website, please open an i
 
 After receiving your request, we will verify the scores shortly and update your scores to our website.
 
-### 6. Reproducing Baseline Results and Paper Figures/Tables
+## Baseline Methods
 
-#### Code
+### 1. Code
 The reference code for baseline methods reported in the paper is available in [this branch](https://github.com/StanfordORB/Stanford-ORB/tree/baselines),
 with instructions [here](https://github.com/StanfordORB/Stanford-ORB/blob/baselines/BASELINE.md). 
 
-#### Checkpoints and Raw Results
+### 2. Checkpoints and Raw Results
 * IDR checkpoints: [Google Drive link](https://drive.google.com/drive/folders/138_S93hyMy9CAho1Pw1CyZH7ExrJW8yL?usp=drive_link). 
 * NVDiffrecMC textured mesh: [Google Drive link](https://drive.google.com/drive/folders/1CUuTicySy4pvZ4jTGM6jgcrKBfWqMXl8?usp=drive_link). 
 * Relighting results for all baselines: [download link](https://downloads.cs.stanford.edu/viscam/StanfordORB/lights_results.zip).
 
-If you have further requests on access to other baseline results or checkpoints, or encountered issues with the code, please email us or open an issue.
+If you have further requests on access to other baseline results or checkpoints, please email us or open an issue.
 
-#### Making Figures and Tables
+### 3. Making Figures and Tables
 Instructions for running scripts to make qualitative figures and tables are available [here](https://github.com/StanfordORB/Stanford-ORB/blob/baselines/PAPER.md). 
 
 ## Citation
