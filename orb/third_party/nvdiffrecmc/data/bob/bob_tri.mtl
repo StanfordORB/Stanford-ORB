@@ -1,4 +1,0 @@
-newmtl feathers
-bsdf pbr
-Ks 0.00 0.25 0.00
-map_Kd bob_diffuse.png
