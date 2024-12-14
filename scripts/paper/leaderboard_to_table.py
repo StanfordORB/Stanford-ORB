@@ -41,7 +41,7 @@ METHOD_TO_STRING = {
     'neuralpil': 'Neural-PIL~\\cite{boss2021neural}',
     'physg': 'PhySG~\\cite{physg2021}',
     'nvdiffrecmc': 'NVDiffRecMC~\\cite{hasselgren2022nvdiffrecmc}',
-    'invrender': 'InvRender~\\cite{wu2023nefii}',
+    'invrender': 'InvRender~\\cite{zhang2022invrender}',
     'singleimage': 'SI-SVBRDF~\\cite{li2020inverse}',
     'sirfs': 'SIRFS~\\cite{barron2014shape}',
     'nvdiffrec_pseudo_gt': 'NVDiffRec~\\cite{Munkberg2022nvdiffrec}\\textdagger',
