@@ -49,6 +49,10 @@ class DatasetNERF(Dataset):
         # Determine resolution & aspect ratio
         if os.path.basename(cfg_path) == 'transforms_novel.json':
             self.resolution = [2048, 2048] # hack
+
+            with open(os.path.join(self.base_dir, 'transforms_train.json'), 'r') as f:
+                tmp_cfg = json.load(f)
+                self.resolution = _load_img(os.path.join(self.base_dir, tmp_cfg['frames'][0]['file_path'])).shape[0:2]
         else:
             self.resolution = _load_img(os.path.join(self.base_dir, self.cfg['frames'][0]['file_path'])).shape[0:2]
         self.aspect = self.resolution[1] / self.resolution[0]

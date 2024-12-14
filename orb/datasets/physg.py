@@ -8,6 +8,8 @@ import torch
 from pathlib import Path
 import os
 from pyquaternion import Quaternion
+from orb.utils.convert_cameras import llff_to_colmap
+from orb.constant import INPUT_RESOLUTION
 import imageio
 
 
@@ -96,30 +98,91 @@ def preprocess_cameras(base_dir):
     return camera_dict, image_paths, mask_paths
 
 
+def preprocess_cameras_core_backup(base_dir, novel):
+    w2c_mats, _, hwf = llff_to_colmap(base_dir, filename='poses_bounds_novel.npy' if novel else 'poses_bounds.npy')
+    h, w, f = hwf
+    print('[DEBUG] loaded hwf from pose bounds', hwf)
+
+    img_size = [w, h]
+    fx, fy, cx, cy = f, f, w / 2, h / 2
+    K = np.eye(4)
+    K[0, 0] = fx
+    K[1, 1] = fy
+    K[0, 2] = cx
+    K[1, 2] = cy
+
+    if novel:
+        with open(os.path.join(base_dir, 'novel_id.txt'), 'r') as f:
+            novel_ids = f.read().splitlines()
+        img_names = [tuple(novel_id.split('/')) for novel_id in novel_ids]
+    else:
+        image_dir = os.path.join(base_dir, 'images')
+        img_names = [f.replace('.exr', '.png') for f in sorted(os.listdir(image_dir)) if f.endswith('exr')]  # assume HDR
+    assert len(img_names) == len(w2c_mats), (len(img_names), len(w2c_mats), base_dir)
+
+    camera_dict = {}
+    for i in range(len(w2c_mats)):
+        img_name = img_names[i]
+        camera_dict[img_name] = {
+            'img_size': img_size,
+            'K': list(K.flatten()),
+            'W2C': list(w2c_mats[i].flatten()),
+        }
+
+    return camera_dict
+
+
+
+
 def preprocess_cameras_core(base_dir, return_before_normalize=False):
     sparse_dir = os.path.join(base_dir, 'sparse/0')
-    colmap_cameras = read_cameras_binary(os.path.join(sparse_dir, "cameras.bin"))
-    colmap_images = read_images_binary(os.path.join(sparse_dir, "images.bin"))
-    # if len(os.listdir(os.path.join(base_dir, 'sparse'))) > 1:  # FIXME: change it back once data is ready!!!
-    if not base_dir.startswith('/viscam/projects/imageint/yzzhang/data/capture_scene_data_v0/data/'):
-        assert len(os.listdir(os.path.join(base_dir, 'sparse'))) == 3, sparse_dir  # FIXME comment back
-        scene1, scene2 = sorted([scene for scene in os.listdir(os.path.join(base_dir, 'sparse')) if scene != '0'])
-        colmap_cameras_novel1 = read_cameras_binary(os.path.join(base_dir, 'sparse', scene1, "cameras.bin"))
-        colmap_images_novel1 = read_images_binary(os.path.join(base_dir, 'sparse', scene1, "images.bin"))
-        colmap_cameras_novel2 = read_cameras_binary(os.path.join(base_dir, 'sparse', scene2, "cameras.bin"))
-        colmap_images_novel2 = read_images_binary(os.path.join(base_dir, 'sparse', scene2, "images.bin"))
-    else:
-        colmap_cameras_novel1 = colmap_cameras
-        colmap_images_novel1 = {}
-        colmap_cameras_novel2 = colmap_cameras
-        colmap_images_novel2 = {}
+    if os.path.exists(sparse_dir):
+        colmap_cameras = read_cameras_binary(os.path.join(sparse_dir, "cameras.bin"))
+        colmap_images = read_images_binary(os.path.join(sparse_dir, "images.bin"))
+        # if len(os.listdir(os.path.join(base_dir, 'sparse'))) > 1:  # FIXME: change it back once data is ready!!!
+        if not base_dir.startswith('/viscam/projects/imageint/yzzhang/data/capture_scene_data_v0/data/'):
+            assert len(os.listdir(os.path.join(base_dir, 'sparse'))) == 3, sparse_dir  # FIXME comment back
+            scene1, scene2 = sorted([scene for scene in os.listdir(os.path.join(base_dir, 'sparse')) if scene != '0'])
+            colmap_cameras_novel1 = read_cameras_binary(os.path.join(base_dir, 'sparse', scene1, "cameras.bin"))
+            colmap_images_novel1 = read_images_binary(os.path.join(base_dir, 'sparse', scene1, "images.bin"))
+            colmap_cameras_novel2 = read_cameras_binary(os.path.join(base_dir, 'sparse', scene2, "cameras.bin"))
+            colmap_images_novel2 = read_images_binary(os.path.join(base_dir, 'sparse', scene2, "images.bin"))
+        else:
+            colmap_cameras_novel1 = colmap_cameras
+            colmap_images_novel1 = {}
+            colmap_cameras_novel2 = colmap_cameras
+            colmap_images_novel2 = {}
 
-    camera_dict = parse_camera_dict(colmap_cameras, colmap_images)
-    camera_dict_joint = {
-        **camera_dict,
-        **{(scene1, k): v for k, v in parse_camera_dict(colmap_cameras_novel1, colmap_images_novel1).items()},
-        **{(scene2, k): v for k, v in parse_camera_dict(colmap_cameras_novel2, colmap_images_novel2).items()},
-    }
+        camera_dict = parse_camera_dict(colmap_cameras, colmap_images)
+        camera_dict_joint = {
+            **camera_dict,
+            **{(scene1, k): v for k, v in parse_camera_dict(colmap_cameras_novel1, colmap_images_novel1).items()},
+            **{(scene2, k): v for k, v in parse_camera_dict(colmap_cameras_novel2, colmap_images_novel2).items()},
+        }
+
+        if True:
+            camera_dict_joint_backup = {
+                **preprocess_cameras_core_backup(base_dir, novel=False),
+                **preprocess_cameras_core_backup(base_dir, novel=True),
+            }
+            if set(camera_dict_joint.keys()) != set(camera_dict_joint_backup.keys()):
+                import ipdb; ipdb.set_trace()
+            for k, v in camera_dict_joint.items():
+                for k_, v_ in v.items():
+                    if not np.allclose(v_, camera_dict_joint_backup[k][k_], atol=1e-3):
+                        if k_ == 'K':
+                            print(f'[ERROR] mismatch: {k}, {k_}')
+                            print(v_, camera_dict_joint_backup[k][k_])
+                        else:
+                            import ipdb; ipdb.set_trace()
+            print('[DEBUG] passed llff-colmap conversion check')
+
+    else:
+        camera_dict_joint = {
+            **preprocess_cameras_core_backup(base_dir, novel=False),
+            **preprocess_cameras_core_backup(base_dir, novel=True),
+        }
+
     if return_before_normalize:
         return camera_dict_joint
     camera_dict_joint, _ = _normalize_cam_dict(camera_dict_joint)
@@ -216,7 +279,7 @@ class Dataset(SceneDataset):
         self.intrinsics_all = []
         self.pose_all = []
         input_image_shape = imageio.imread(image_paths[0]).shape
-        assert input_image_shape == (2048, 2048, 3), input_image_shape
+        assert input_image_shape == (INPUT_RESOLUTION, INPUT_RESOLUTION, 3), input_image_shape
         downsize_factor = input_image_shape[0] / BENCHMARK_RESOLUTION
         for x in sorted(cam_dict.keys()):
             intrinsics = cam_dict[x]['K'].astype(np.float32)

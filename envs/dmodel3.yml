@@ -1,0 +1,13 @@
+name: dmodel
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - cudatoolkit=11.6
+  - torchaudio==0.12.0
+  - pytorch==1.12.0
+  - torchvision==0.13.0
+  - iopath
+  - fvcore
+  - pytorch3d
+prefix: /viscam/u/zhengfei/anaconda3/envs/dmodel

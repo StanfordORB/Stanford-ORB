@@ -6,7 +6,7 @@ import nn_utils.math_utils as math_utils
 from dataflow.nerd.load_blender import load_blender_data
 from dataflow.nerd.load_nerf_blender import load_blender_data as load_nerf_blender_data
 from dataflow.nerd.load_real_world import load_llff_data
-from imageint.datasets.neuralpil import load_blender_data as load_benchmark_data
+from orb.datasets.neuralpil import load_blender_data as load_benchmark_data
 from nn_utils.nerf_layers import get_full_image_eval_grid
 from utils.training_setup_utils import get_num_gpus
 

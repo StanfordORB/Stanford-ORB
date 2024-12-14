@@ -5,7 +5,7 @@ import imageio
 import tensorflow as tf
 import json
 import numpy as np
-from orb.constant import BENCHMARK_RESOLUTION
+from orb.constant import BENCHMARK_RESOLUTION, INPUT_RESOLUTION
 from orb.utils.preprocess import load_mask_png, load_rgb_png
 
 
@@ -67,7 +67,11 @@ def load_blender_data(basedir, factor=None, width=None, height=None, trainskip=1
     splits = ['train', 'val', 'test']
     img0 = next(iter(glob.glob(os.path.join(basedir, "train", "*.png"))))
     sh = imageio.imread(img0).shape
-    assert factor is not None and sh[0] / factor == BENCHMARK_RESOLUTION and sh[1] / factor == BENCHMARK_RESOLUTION
+    assert sh == (INPUT_RESOLUTION, INPUT_RESOLUTION, 3), f"Input resolution is {sh}, expected {INPUT_RESOLUTION}"
+    if factor != INPUT_RESOLUTION / BENCHMARK_RESOLUTION:
+        print(f"Warning: factor is {factor}, overriding to {INPUT_RESOLUTION / BENCHMARK_RESOLUTION}")
+    factor = INPUT_RESOLUTION / BENCHMARK_RESOLUTION
+    # assert factor is not None and sh[0] / factor == BENCHMARK_RESOLUTION and sh[1] / factor == BENCHMARK_RESOLUTION
 
     all_imgs = []
     all_masks = []

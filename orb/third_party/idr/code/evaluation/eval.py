@@ -27,6 +27,7 @@ def evaluate(**kwargs):
 
     expname = conf.get_string('train.expname') + kwargs['expname']
     scan_id = kwargs['scan_id'] if kwargs['scan_id'] != -1 else conf.get_int('dataset.scan_id', default=-1)
+    data_dir = kwargs['data_dir'] if kwargs['data_dir'] != -1 else conf.get_string('dataset.data_dir', default='-1')
     if scan_id != -1:
         expname = expname + '_{0}'.format(scan_id)
 
@@ -56,8 +57,13 @@ def evaluate(**kwargs):
     dataset_conf = conf.get_config('dataset')
     if kwargs['scan_id'] != -1:
         dataset_conf['scan_id'] = kwargs['scan_id']
+    if kwargs['data_dir'] != '-1':
+        dataset_conf['data_dir'] = kwargs['data_dir']
     if 'split' in kwargs:
         dataset_conf['split'] = kwargs['split']
+    if dataset_conf['data_dir'] == '/viscam/projects/imageint/yzzhang/data/capture_scene_data/data':
+        print('changing data dir')
+        dataset_conf['data_dir'] = '/viscam/projects/imageint/yzzhang/data/capture_scene_data_v0/data'
     eval_dataset = utils.get_class(conf.get_string('train.dataset_class'))(eval_cameras, **dataset_conf)
 
     # settings for camera optimization

@@ -4,7 +4,7 @@ import torch
 import numpy as np
 
 from orb.third_party.invrender.code.utils import rend_util
-from orb.constant import BENCHMARK_RESOLUTION
+from orb.constant import BENCHMARK_RESOLUTION, INPUT_RESOLUTION
 from orb.utils.preprocess import load_hdr_rgba
 import json
 import imageio
@@ -42,7 +42,7 @@ class Dataset(SynDataset):
 
         img_h = img_w = BENCHMARK_RESOLUTION
         input_image_shape = load_hdr_rgba(image_paths[0]).shape
-        assert input_image_shape == (2048, 2048, 4), input_image_shape
+        assert input_image_shape == (INPUT_RESOLUTION, INPUT_RESOLUTION, 4), input_image_shape
         downsize_factor = input_image_shape[0] / img_h
 
         if split != 'novel':

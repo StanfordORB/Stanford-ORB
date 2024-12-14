@@ -19,9 +19,9 @@ from utils import rend_util
 from utils import vis_util
 from model.sg_render import compute_envmap
 import imageio
-from imageint.utils.preprocess import rgb_to_srgb
-from imageint.datasets.physg import preprocess_cameras_core
-from imageint.utils.colmap.nerfplusplus_normalize_cam_dict import get_tf_cams
+from orb.utils.preprocess import rgb_to_srgb
+from orb.datasets.physg import preprocess_cameras_core
+from orb.utils.colmap.nerfplusplus_normalize_cam_dict import get_tf_cams
 import pyexr
 
 
@@ -125,7 +125,7 @@ def evaluate(**kwargs):
         lookat = min_line_dist(rays_o=rays_o, rays_d=rays_d)
         print('XXX', lookat)
 
-        save_path = os.path.join(evaldir, 'debug_sdf')
+        save_path = os.path.join(evaldir, 'debug_sdf') #'/viscam/projects/imageint/yzzhang/tmp/physg_debug'
         os.makedirs(save_path, exist_ok=True)
 
         def forward_points(points, name):
@@ -213,7 +213,7 @@ def evaluate(**kwargs):
         return
 
     if os.getenv('PHYSG_GT_ENV_MAP') == '1':
-        from imageint.constant import PROCESSED_SCENE_DATA_DIR
+        from orb.constant import PROCESSED_SCENE_DATA_DIR
         import glob
         envmap_path_iter = iter(sorted(glob.glob(os.path.join(PROCESSED_SCENE_DATA_DIR, os.environ['PHYSG_LIGHT_SCENE'], 'physg_format', 'env_map/*/sg_128.npy'))))
 
